@@ -1,6 +1,5 @@
 package ferramenta_pews_back;
 
-import ferramenta_pews_back.service.HealtStaffService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

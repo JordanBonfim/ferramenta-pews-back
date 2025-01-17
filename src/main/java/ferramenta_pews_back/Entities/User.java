@@ -2,7 +2,6 @@ package ferramenta_pews_back.Entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Setter;
 import java.util.UUID;
 
 @Entity
@@ -10,8 +9,6 @@ import java.util.UUID;
 @Data
 @Table(name = "users") // Renomeia a tabela para evitar conflito com "user"
 public class User {
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
@@ -22,7 +19,8 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    private String role;
+    private String role; // Exemplo: HEALTH_STAFF, ADMIN
+
 
     // Setter para 'username'
     public void setUsername(String username) {

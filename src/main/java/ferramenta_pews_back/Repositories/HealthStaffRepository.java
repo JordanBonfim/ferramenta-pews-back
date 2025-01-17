@@ -7,4 +7,5 @@ import java.util.UUID;
 
 
 public interface HealthStaffRepository extends JpaRepository<HealthStaff, UUID> {
+    HealthStaff findByUsernameAndPassword(String username, String password);
 }

@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 public class HealthStaff extends User {
 
     private String name;
-    private String documento;
+    private String document;
     private String specialty;
 
     // Setter para 'name'
@@ -20,9 +20,9 @@ public class HealthStaff extends User {
         this.name = name;
     }
 
-    // Setter para 'documento'
-    public void setDocumento(String documento) {
-        this.documento = documento;
+    // Setter para 'document'
+    public void setDocument(String document) {
+        this.document = document;
     }
 
     // Setter para 'specialty'
@@ -34,8 +34,8 @@ public class HealthStaff extends User {
         return name;
     }
 
-    public String getDocumento() {
-        return documento;
+    public String getDocument() {
+        return document;
     }
 
     public String getSpecialty() {
