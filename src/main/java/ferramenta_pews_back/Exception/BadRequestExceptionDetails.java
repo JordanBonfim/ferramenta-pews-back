@@ -1,12 +1,16 @@
 package ferramenta_pews_back.Exception;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
 @Data
 @Builder
-public class BadRequestExceptionDetail {
+@AllArgsConstructor
+@RequiredArgsConstructor
+public class BadRequestExceptionDetails {
     private String title;
     private int status;
     private String details;

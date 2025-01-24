@@ -2,6 +2,8 @@ package ferramenta_pews_back.Entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
+
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -21,35 +23,8 @@ public class User {
 
     private String role; // Exemplo: HEALTH_STAFF, ADMIN
 
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
-    // Setter para 'username'
-    public void setUsername(String username) {
-        this.username = username;
-    }
 
-    // Setter para 'password'
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    // Setter para 'role'
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getRole() {
-        return role;
-    }
 }

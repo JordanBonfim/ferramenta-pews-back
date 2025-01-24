@@ -1,5 +1,6 @@
 package ferramenta_pews_back.Controller;
 
+import ferramenta_pews_back.DTOs.HealthStaffPutDTO;
 import ferramenta_pews_back.DTOs.LoginRequestDTO;
 import ferramenta_pews_back.DTOs.LoginResponseDTO;
 import ferramenta_pews_back.DTOs.HealthStaffPostDTO;
@@ -8,10 +9,15 @@ import ferramenta_pews_back.Exception.InvalidCredentialsException;
 import ferramenta_pews_back.Repositories.HealthStaffRepository;
 import ferramenta_pews_back.Service.HealthStaffService;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("api/users")
@@ -22,14 +28,28 @@ public class HealthStaffController {
     @Autowired
     private HealthStaffRepository healthStaffRepository;
 
+    @GetMapping
+    public ResponseEntity<HealthStaff> getUserByUsername(@RequestParam String username) throws BadRequestException {
+        return new ResponseEntity<>(healthStaffService.getByUserName(username), HttpStatus.OK);
+    }
+
+    @GetMapping("/uuid")
+    public ResponseEntity<HealthStaff> getUserByUUID(@RequestParam UUID uuid) throws BadRequestException {
+        return new ResponseEntity<>(healthStaffService.getByUUID(uuid), HttpStatus.OK);
+    }
+    @GetMapping("/listAll")
+    public ResponseEntity<List<HealthStaff>> getAllUsers() {
+        List<HealthStaff> healthStaffList = healthStaffService.getAll();
+        return new ResponseEntity<>(healthStaffList, HttpStatus.OK);
+    }
+
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponseDTO> HealthStaffLogin(@RequestBody LoginRequestDTO loginRequestDTO) throws Exception{
+    public ResponseEntity<LoginResponseDTO> HealthStaffLogin(@RequestBody LoginRequestDTO loginRequestDTO){
         System.out.println("Initiating Login");
         if (healthStaffService.login(loginRequestDTO) == null){
             System.out.println("Invalid Credentials");
             return new ResponseEntity<> (null, HttpStatus.UNAUTHORIZED);
-//              throw new InvalidCredentialsException("Invalid login credentials.");
         }
         System.out.println("Login in");
 
@@ -37,8 +57,19 @@ public class HealthStaffController {
     }
 
     @PostMapping
-    public ResponseEntity<HealthStaff> createUser(@RequestBody HealthStaffPostDTO healthStaffPostDTO) throws Exception {
-        return new ResponseEntity<> (healthStaffService.registerHealthStaff(healthStaffPostDTO), HttpStatus.CREATED) ;
+    public ResponseEntity<HealthStaff> createUser(@RequestBody HealthStaffPostDTO healthStaffPostDTO) throws BadRequestException {
+        return new ResponseEntity<> (healthStaffService.registerHealthStaff(healthStaffPostDTO), HttpStatus.CREATED);
+    }
+
+    @PutMapping
+    public ResponseEntity<HealthStaff> updateUser(@RequestBody HealthStaffPutDTO healthStaffPutDTO) throws BadRequestException {
+        return new ResponseEntity<> (healthStaffService.updateHealthStaff(healthStaffPutDTO), HttpStatus.OK);
+    }
+
+    @DeleteMapping
+    public ResponseEntity<HealthStaff> deleteUser(@RequestParam UUID uuid) throws BadRequestException {
+        healthStaffService.deleteHealthStaff(uuid);
+        return new ResponseEntity<> (HttpStatus.NO_CONTENT);
     }
 
 
@@ -65,7 +96,6 @@ public class HealthStaffController {
 //        return new ResponseEntity<> (userService.createUser(userPostRequestBody), HttpStatus.CREATED) ;
 //    }
 //
-
 }
 
 
