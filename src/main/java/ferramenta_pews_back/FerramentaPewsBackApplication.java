@@ -8,6 +8,7 @@ public class FerramentaPewsBackApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(FerramentaPewsBackApplication.class, args);
+
 	}
 
 }
