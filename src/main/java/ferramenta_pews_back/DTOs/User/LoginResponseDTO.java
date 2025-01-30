@@ -1,4 +1,4 @@
-package ferramenta_pews_back.DTOs;
+package ferramenta_pews_back.DTOs.User;
 
 import ferramenta_pews_back.Entities.HealthStaff;
 import lombok.AllArgsConstructor;
