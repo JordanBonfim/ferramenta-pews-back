@@ -1,6 +1,7 @@
 package ferramenta_pews_back.Controller;
 
 import ferramenta_pews_back.DTOs.Patient.PatientGetDTO;
+import ferramenta_pews_back.DTOs.Patient.PatientGetListDTO;
 import ferramenta_pews_back.DTOs.Patient.PatientPostDTO;
 import ferramenta_pews_back.DTOs.User.HealthStaffPostDTO;
 import ferramenta_pews_back.Entities.HealthStaff;
@@ -27,6 +28,15 @@ public class PatientController {
     @Transactional
     public ResponseEntity<PatientGetDTO> getPatientById(@RequestParam UUID uuid) throws BadRequestException{
         return new ResponseEntity<>(patientService.findPatientById(uuid), HttpStatus.OK);
+    }
+
+    @GetMapping("/listAll")
+    @Transactional
+    public ResponseEntity<PatientGetListDTO> getAllPatients(
+            @RequestParam(value = "pageNo", defaultValue = "0", required = false) int pageNumber,
+            @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize
+    ) throws BadRequestException{
+        return new ResponseEntity<>(patientService.findAllPatients(pageNumber,pageSize), HttpStatus.OK);
     }
 
     @PostMapping

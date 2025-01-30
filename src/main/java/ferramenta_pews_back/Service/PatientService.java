@@ -2,6 +2,7 @@ package ferramenta_pews_back.Service;
 
 import ferramenta_pews_back.DTOs.Intervention.InterventionGetDTO;
 import ferramenta_pews_back.DTOs.Patient.PatientGetDTO;
+import ferramenta_pews_back.DTOs.Patient.PatientGetListDTO;
 import ferramenta_pews_back.DTOs.Patient.PatientPostDTO;
 import ferramenta_pews_back.DTOs.Score.ScoreGetDTO;
 import ferramenta_pews_back.DTOs.User.HealthStaffPostDTO;
@@ -13,9 +14,12 @@ import ferramenta_pews_back.Tools.PatientMapper;
 import ferramenta_pews_back.Tools.ScoreMapper;
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.awt.print.Pageable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +37,29 @@ public class PatientService {
     InterventionService interventionService;
     ScoreMapper scoreMapper;
     PatientMapper patientMapper;
+
+
+
+    public PatientGetListDTO findAllPatients(int pageNumber, int pageSize) throws BadRequestException {
+        PageRequest pageable = PageRequest.of(pageNumber, pageSize);
+        List<PatientGetDTO> patientGetDTOList = new ArrayList<>();
+
+        Page<Patient> patientList = patientRepository.findAll(pageable);
+
+        for (Patient patient : patientList) {
+            List<ScoreGetDTO> scoreList = new ArrayList<>(); // Criação de uma nova lista para cada paciente
+
+            for (Score score : patient.getScoreList()) {
+                System.out.println(score.getUuid());
+                InterventionGetDTO interventionGetDTO = interventionService.findByUUID(score.getIntervention().getUuid());
+                scoreList.add(scoreMapper.toEntity(score, interventionGetDTO));
+            }
+
+            patientGetDTOList.add(patientMapper.toEntity(patient, scoreList));
+        }
+
+        return new PatientGetListDTO(patientGetDTOList, pageNumber, pageSize);
+    }
 
 
     public PatientGetDTO findPatientById(UUID id) throws BadRequestException {
