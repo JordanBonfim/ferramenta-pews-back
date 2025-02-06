@@ -1,10 +1,9 @@
 package ferramenta_pews_back.Tools;
 
-import ferramenta_pews_back.DTOs.HealthStaffPostDTO;
-import ferramenta_pews_back.DTOs.HealthStaffPutDTO;
+import ferramenta_pews_back.DTOs.User.HealthStaffPostDTO;
+import ferramenta_pews_back.DTOs.User.HealthStaffPutDTO;
 import ferramenta_pews_back.Entities.HealthStaff;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 public class HealthStaffMapper {
 

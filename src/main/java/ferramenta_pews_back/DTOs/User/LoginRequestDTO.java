@@ -1,4 +1,4 @@
-package ferramenta_pews_back.DTOs;
+package ferramenta_pews_back.DTOs.User;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

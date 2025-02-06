@@ -1,10 +1,10 @@
 package ferramenta_pews_back.Service;
 
 
-import ferramenta_pews_back.DTOs.HealthStaffPutDTO;
-import ferramenta_pews_back.DTOs.LoginRequestDTO;
-import ferramenta_pews_back.DTOs.LoginResponseDTO;
-import ferramenta_pews_back.DTOs.HealthStaffPostDTO;
+import ferramenta_pews_back.DTOs.User.HealthStaffPutDTO;
+import ferramenta_pews_back.DTOs.User.LoginRequestDTO;
+import ferramenta_pews_back.DTOs.User.LoginResponseDTO;
+import ferramenta_pews_back.DTOs.User.HealthStaffPostDTO;
 import ferramenta_pews_back.Entities.HealthStaff;
 import ferramenta_pews_back.Entities.User;
 import ferramenta_pews_back.Repositories.HealthStaffRepository;
@@ -13,7 +13,6 @@ import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Field;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;

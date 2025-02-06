@@ -1,13 +1,7 @@
 package ferramenta_pews_back.Entities;
 
-import ferramenta_pews_back.DTOs.BaseUserDTO;
-import ferramenta_pews_back.DTOs.HealthStaffPostDTO;
-import ferramenta_pews_back.DTOs.HealthStaffPutDTO;
 import jakarta.persistence.Entity;
 import lombok.*;
-
-import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Entity
 @Data

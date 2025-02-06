@@ -1,11 +1,10 @@
 package ferramenta_pews_back.Controller;
 
-import ferramenta_pews_back.DTOs.HealthStaffPutDTO;
-import ferramenta_pews_back.DTOs.LoginRequestDTO;
-import ferramenta_pews_back.DTOs.LoginResponseDTO;
-import ferramenta_pews_back.DTOs.HealthStaffPostDTO;
+import ferramenta_pews_back.DTOs.User.HealthStaffPutDTO;
+import ferramenta_pews_back.DTOs.User.LoginRequestDTO;
+import ferramenta_pews_back.DTOs.User.LoginResponseDTO;
+import ferramenta_pews_back.DTOs.User.HealthStaffPostDTO;
 import ferramenta_pews_back.Entities.HealthStaff;
-import ferramenta_pews_back.Exception.InvalidCredentialsException;
 import ferramenta_pews_back.Repositories.HealthStaffRepository;
 import ferramenta_pews_back.Service.HealthStaffService;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +12,6 @@ import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
