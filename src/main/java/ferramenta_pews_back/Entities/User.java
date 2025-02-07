@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -14,17 +16,19 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
-
     @Column(unique = true, nullable = false)
     private String username;
-
     @Column(nullable = false)
     private String password;
-
     private String role; // Exemplo: HEALTH_STAFF, ADMIN
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    @ManyToMany
+    @JoinTable(name = "users_workspaces",
+            joinColumns = @JoinColumn (name = "user_fk"),
+            inverseJoinColumns = @JoinColumn(name = "workspace_fk"))
+    private Set<Workspace> workspaces;
 
 
 }
