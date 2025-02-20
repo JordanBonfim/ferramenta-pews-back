@@ -34,10 +34,50 @@ public class PatientController {
     @Transactional
     public ResponseEntity<PatientGetListDTO> getAllPatients(
             @RequestParam(value = "pageNo", defaultValue = "0", required = false) int pageNumber,
-            @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize
-    ) throws BadRequestException{
-        return new ResponseEntity<>(patientService.findAllPatients(pageNumber,pageSize), HttpStatus.OK);
+            @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize,
+            @RequestParam(value = "name", required = false) String name
+    ) throws BadRequestException {
+        if (name == null || name.isEmpty()) {
+            return new ResponseEntity<>(patientService.findAllPatients(pageNumber, pageSize), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(patientService.findAllPatientsTestFilters(pageNumber, pageSize, name), HttpStatus.OK);
+        }
     }
+
+    @GetMapping("/listLatestScores")
+    @Transactional
+    public ResponseEntity<PatientGetListDTO> getPatientsWithLatestScore(
+            @RequestParam(value = "pageNo", defaultValue = "0", required = false) int pageNumber,
+            @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize,
+            @RequestParam(value = "sortBy", defaultValue = "createdAt", required = false) String sortBy,
+            @RequestParam(value = "sortDirection", defaultValue = "desc", required = false) String sortDirection
+    ) throws BadRequestException {
+        return new ResponseEntity<>(
+                patientService.findPatientsWithSorting(pageNumber, pageSize, sortBy, sortDirection),
+                HttpStatus.OK
+        );
+    }
+
+
+
+//    @GetMapping("/listAll")
+//    @Transactional
+//    public ResponseEntity<PatientGetListDTO> getAllPatients(
+//            @RequestParam(value = "pageNo", defaultValue = "0", required = false) int pageNumber,
+//            @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize
+//    ) throws BadRequestException{
+//        return new ResponseEntity<>(patientService.findAllPatients(pageNumber,pageSize), HttpStatus.OK);
+//    }
+//
+//    @GetMapping("/listAll2")
+//    @Transactional
+//    public ResponseEntity<PatientGetListDTO> getAllPatientsWithFilters(
+//            @RequestParam(value = "pageNo", defaultValue = "0", required = false) int pageNumber,
+//            @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize,
+//            @RequestParam(value = "name", required = false) String name
+//    ) throws BadRequestException{
+//        return new ResponseEntity<>(patientService.findAllPatientsTestFilters(pageNumber,pageSize, name), HttpStatus.OK);
+//    }
 
     @PostMapping
     public ResponseEntity<Patient> createPatient(@RequestBody PatientPostDTO patientPostDTO) throws BadRequestException {
