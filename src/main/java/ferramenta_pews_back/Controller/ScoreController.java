@@ -24,6 +24,7 @@ public class ScoreController {
     ScoreService scoreService;
 
     @PostMapping
+    @CrossOrigin
     public ResponseEntity<ScoreGetDTO> getPatientById(@RequestBody ScorePostDTO scorePostDTO) throws BadRequestException {
         System.out.println(scorePostDTO);
         return new ResponseEntity<>(scoreService.registerScore(scorePostDTO), HttpStatus.OK);

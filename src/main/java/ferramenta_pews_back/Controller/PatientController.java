@@ -25,12 +25,14 @@ public class PatientController {
     PatientService patientService;
 
     @GetMapping("/uuid")
+    @CrossOrigin
     @Transactional
     public ResponseEntity<PatientGetDTO> getPatientById(@RequestParam UUID uuid) throws BadRequestException{
         return new ResponseEntity<>(patientService.findPatientById(uuid), HttpStatus.OK);
     }
 
     @GetMapping("/listAll")
+    @CrossOrigin
     @Transactional
     public ResponseEntity<PatientGetListDTO> getAllPatients(
             @RequestParam(value = "pageNo", defaultValue = "0", required = false) int pageNumber,
@@ -45,6 +47,7 @@ public class PatientController {
     }
 
     @GetMapping("/listLatestScores")
+    @CrossOrigin
     @Transactional
     public ResponseEntity<PatientGetListDTO> getPatientsWithLatestScore(
             @RequestParam(value = "pageNo", defaultValue = "0", required = false) int pageNumber,
