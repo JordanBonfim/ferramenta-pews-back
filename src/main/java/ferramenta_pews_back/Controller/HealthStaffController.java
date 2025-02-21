@@ -22,20 +22,25 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class HealthStaffController {
     @Autowired
+
     private HealthStaffService healthStaffService;
     @Autowired
+
     private HealthStaffRepository healthStaffRepository;
 
     @GetMapping
+    @CrossOrigin
     public ResponseEntity<HealthStaff> getUserByUsername(@RequestParam String username) throws BadRequestException {
         return new ResponseEntity<>(healthStaffService.getByUserName(username), HttpStatus.OK);
     }
 
     @GetMapping("/uuid")
+    @CrossOrigin
     public ResponseEntity<HealthStaff> getUserByUUID(@RequestParam UUID uuid) throws BadRequestException {
         return new ResponseEntity<>(healthStaffService.getByUUID(uuid), HttpStatus.OK);
     }
     @GetMapping("/listAll")
+    @CrossOrigin
     public ResponseEntity<List<HealthStaff>> getAllUsers() {
         List<HealthStaff> healthStaffList = healthStaffService.getAll();
         return new ResponseEntity<>(healthStaffList, HttpStatus.OK);
@@ -43,6 +48,7 @@ public class HealthStaffController {
 
 
     @PostMapping("/login")
+    @CrossOrigin
     public ResponseEntity<LoginResponseDTO> HealthStaffLogin(@RequestBody LoginRequestDTO loginRequestDTO){
         System.out.println("Initiating Login");
         if (healthStaffService.login(loginRequestDTO) == null){
@@ -55,16 +61,19 @@ public class HealthStaffController {
     }
 
     @PostMapping
+    @CrossOrigin
     public ResponseEntity<HealthStaff> createUser(@RequestBody HealthStaffPostDTO healthStaffPostDTO) throws BadRequestException {
         return new ResponseEntity<> (healthStaffService.registerHealthStaff(healthStaffPostDTO), HttpStatus.CREATED);
     }
 
     @PutMapping
+    @CrossOrigin
     public ResponseEntity<HealthStaff> updateUser(@RequestBody HealthStaffPutDTO healthStaffPutDTO) throws BadRequestException {
         return new ResponseEntity<> (healthStaffService.updateHealthStaff(healthStaffPutDTO), HttpStatus.OK);
     }
 
     @DeleteMapping
+    @CrossOrigin
     public ResponseEntity<HealthStaff> deleteUser(@RequestParam UUID uuid) throws BadRequestException {
         healthStaffService.deleteHealthStaff(uuid);
         return new ResponseEntity<> (HttpStatus.NO_CONTENT);
