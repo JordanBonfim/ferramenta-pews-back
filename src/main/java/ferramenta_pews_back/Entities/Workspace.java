@@ -1,6 +1,8 @@
 package ferramenta_pews_back.Entities;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,7 +21,9 @@ import java.util.UUID;
 public class Workspace {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    UUID uuid;
+    private UUID uuid;
+    private String name;
+    @JsonBackReference
     @ManyToMany(mappedBy = "workspaces")
-    private Set<User> usersList;
+    private List<User> users;
 }

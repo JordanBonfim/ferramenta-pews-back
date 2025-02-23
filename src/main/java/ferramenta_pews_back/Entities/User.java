@@ -1,7 +1,9 @@
 package ferramenta_pews_back.Entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.Cascade;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -24,11 +26,11 @@ public class User {
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    @JsonManagedReference
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @ManyToMany
-    @JoinTable(name = "users_workspaces",
+    @JoinTable(name = "user_workspaces",
             joinColumns = @JoinColumn (name = "user_fk"),
             inverseJoinColumns = @JoinColumn(name = "workspace_fk"))
-    private Set<Workspace> workspaces;
-
-
+    private List<Workspace> workspaces;
 }
