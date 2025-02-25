@@ -1,13 +1,13 @@
 package ferramenta_pews_back.Entities;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -31,5 +31,6 @@ public class Patient {
     @Column(nullable = false)
     private LocalDate admissionDate;
     @OneToMany(mappedBy = "patient")
+    @JsonBackReference
     private List<Score> scoreList;
 }

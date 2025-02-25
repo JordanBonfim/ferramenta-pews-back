@@ -1,7 +1,7 @@
 package ferramenta_pews_back.Entities;
 
 
-import jakarta.annotation.Nullable;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,6 +24,7 @@ public class Intervention {
     private String TempoControleSSVV;
 
     @OneToMany(mappedBy = "intervention")
+    @JsonBackReference
     private List<Score> scores;
 
 }
