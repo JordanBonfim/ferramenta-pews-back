@@ -52,4 +52,24 @@ public class WorkspaceService {
 
         return workspace;
     }
+
+    public void deleteWorkspace(UUID workspaceId) throws BadRequestException {
+        if (workspaceId == null) {
+            throw new BadRequestException("Workspace ID cannot be null");
+        }
+
+        Optional<Workspace> workspaceOpt = workspaceRepository.findById(workspaceId);
+        if (!workspaceOpt.isPresent()) {
+            throw new BadRequestException("Workspace not found");
+        }
+
+        Workspace workspace = workspaceOpt.get();
+
+        for (User user : workspace.getUsers()) {
+            user.getWorkspaces().remove(workspace);
+        }
+
+        workspaceRepository.deleteById(workspaceId);
+    }
+
 }

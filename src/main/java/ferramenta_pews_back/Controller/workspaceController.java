@@ -29,8 +29,16 @@ public class workspaceController {
 
     @PostMapping
     @CrossOrigin
-    public ResponseEntity<Workspace> createWorkspace(@RequestBody WorkspacePostDTO dto) throws BadRequestException {
+    public ResponseEntity<Workspace> postWorkspace(@RequestBody WorkspacePostDTO dto) throws BadRequestException {
         return new ResponseEntity<>(workspaceService.createWorkspace(dto), HttpStatus.OK);
+
+    }
+
+    @DeleteMapping
+    @CrossOrigin
+    public ResponseEntity<Workspace> deleteWorkspace(@RequestParam UUID uuid) throws BadRequestException {
+        workspaceService.deleteWorkspace(uuid);
+        return new ResponseEntity<> (HttpStatus.NO_CONTENT);
 
     }
 
