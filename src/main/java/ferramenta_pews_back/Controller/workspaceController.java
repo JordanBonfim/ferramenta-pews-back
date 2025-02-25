@@ -29,7 +29,7 @@ public class workspaceController {
 
     @PostMapping
     @CrossOrigin
-    public ResponseEntity<Workspace> createWorkspace(@RequestBody WorkspacePostDTO dto){
+    public ResponseEntity<Workspace> createWorkspace(@RequestBody WorkspacePostDTO dto) throws BadRequestException {
         return new ResponseEntity<>(workspaceService.createWorkspace(dto), HttpStatus.OK);
 
     }
