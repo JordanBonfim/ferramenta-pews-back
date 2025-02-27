@@ -1,15 +1,15 @@
 package ferramenta_pews_back.Entities;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.annotations.Cascade;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.UUID;
 
 @Entity
@@ -43,10 +43,14 @@ public class Score {
     private LocalDateTime updatedAt;
 
     @ManyToOne
+    @JsonManagedReference
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @JoinColumn(name = "patientId")
     private Patient patient;
 
     @ManyToOne
+    @JsonManagedReference
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @JoinColumn(name="interventionId")
     private Intervention intervention;
 }

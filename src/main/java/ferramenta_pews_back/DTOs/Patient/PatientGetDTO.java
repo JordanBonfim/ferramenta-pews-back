@@ -1,8 +1,6 @@
 package ferramenta_pews_back.DTOs.Patient;
 
 import ferramenta_pews_back.DTOs.Score.ScoreGetDTO;
-import ferramenta_pews_back.DTOs.Score.ScorePostDTO;
-import ferramenta_pews_back.Entities.Score;
 import lombok.*;
 
 import java.time.LocalDate;

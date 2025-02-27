@@ -2,29 +2,28 @@ package ferramenta_pews_back.Entities;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class Intervention {
+@Builder
+public class Workspace {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID uuid;
-    @Column(nullable = false, unique = true)
-    private String description;
-    @Column(nullable = false)
-    private String TempoControleSSVV;
-
-    @OneToMany(mappedBy = "intervention")
+    private String name;
     @JsonBackReference
-    private List<Score> scores;
-
+    @ManyToMany(mappedBy = "workspaces")
+    private List<User> users;
 }

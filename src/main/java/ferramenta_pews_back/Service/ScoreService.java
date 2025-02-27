@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -49,11 +51,20 @@ public class ScoreService {
 
         scoreRepository.save(score);
 
-        ScoreGetDTO scoreGetDTO = scoreMapper.toEntity(score, interventionGetDTO);
+        return scoreMapper.toEntity(score, interventionGetDTO);
 
-        return scoreGetDTO;
     }
-    public void getAllByPatientID(UUID uuid) {
-        
+    public List<ScoreGetDTO> getAllByPatientID(UUID uuid) {
+
+
+        List<Score> scores = scoreRepository.findAllByPatientUuidOrderByUpdatedAtDesc(uuid);
+        List<ScoreGetDTO> ls = new ArrayList<>();
+        for(Score s : scores){
+
+            ls.add(ScoreMapper.toEntity(s));
+        }
+
+        return ls;
+
     }
 }
