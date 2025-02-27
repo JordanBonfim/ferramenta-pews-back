@@ -42,6 +42,9 @@ public class Score {
     @Column(nullable = false)
     private LocalDateTime updatedAt;
 
+    @Column(nullable = false)
+    private int consciousnessState;
+
     @ManyToOne
     @JsonManagedReference
     @Cascade(org.hibernate.annotations.CascadeType.ALL)

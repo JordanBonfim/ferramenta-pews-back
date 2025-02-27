@@ -42,7 +42,6 @@ public class PatientService {
     public PatientGetListDTO findPatientsWithSorting(
             int pageNumber, int pageSize, String sortBy, String sortDirection
     ) throws BadRequestException {
-
         Sort.Direction direction = sortDirection.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
         PageRequest pageable = PageRequest.of(pageNumber, pageSize);
 
@@ -66,7 +65,7 @@ public class PatientService {
             patientList = patientRepository.findAll(pageable);
         }
 
-
+        int totalSize = (int)(patientRepository.count());
         for (Patient patient : patientList) {
             List<Score> scores = patient.getScoreList();
 
@@ -86,7 +85,7 @@ public class PatientService {
         }
 
 
-        return new PatientGetListDTO(patientGetDTOList, pageNumber, pageSize);
+        return new PatientGetListDTO(patientGetDTOList, pageNumber, pageSize, totalSize);
     }
 
 
@@ -110,10 +109,9 @@ public class PatientService {
         }, pageable);
 
 
-
+        int totalSize = (int)(patientRepository.count());
         for (Patient patient : patientList) {
             List<ScoreGetDTO> scoreList = new ArrayList<>(); // Criação de uma nova lista para cada paciente
-
             for (Score score : patient.getScoreList()) {
                 System.out.println(score.getUuid());
                 InterventionGetDTO interventionGetDTO = interventionService.findByUUID(score.getIntervention().getUuid());
@@ -123,7 +121,7 @@ public class PatientService {
             patientGetDTOList.add(patientMapper.toEntity(patient, scoreList));
         }
 
-        return new PatientGetListDTO(patientGetDTOList, pageNumber, pageSize);
+        return new PatientGetListDTO(patientGetDTOList, pageNumber, pageSize, totalSize);
     }
 
 
@@ -137,6 +135,7 @@ public class PatientService {
         List<PatientGetDTO> patientGetDTOList = new ArrayList<>();
 
         Page<Patient> patientList = patientRepository.findAll(pageable);
+        int totalSize = (int)(patientRepository.count());
 
         for (Patient patient : patientList) {
             List<ScoreGetDTO> scoreList = new ArrayList<>(); // Criação de uma nova lista para cada paciente
@@ -150,7 +149,7 @@ public class PatientService {
             patientGetDTOList.add(patientMapper.toEntity(patient, scoreList));
         }
 
-        return new PatientGetListDTO(patientGetDTOList, pageNumber, pageSize);
+        return new PatientGetListDTO(patientGetDTOList, pageNumber, pageSize, totalSize);
     }
 
 

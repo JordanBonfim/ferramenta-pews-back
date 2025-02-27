@@ -31,22 +31,22 @@ public class PatientController {
         return new ResponseEntity<>(patientService.findPatientById(uuid), HttpStatus.OK);
     }
 
-    @GetMapping("/listAll")
-    @CrossOrigin
-    @Transactional
-    public ResponseEntity<PatientGetListDTO> getAllPatients(
-            @RequestParam(value = "pageNo", defaultValue = "0", required = false) int pageNumber,
-            @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize,
-            @RequestParam(value = "name", required = false) String name
-    ) throws BadRequestException {
-        if (name == null || name.isEmpty()) {
-            return new ResponseEntity<>(patientService.findAllPatients(pageNumber, pageSize), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(patientService.findAllPatientsTestFilters(pageNumber, pageSize, name), HttpStatus.OK);
-        }
-    }
+//    @GetMapping("/listAll")
+//    @CrossOrigin
+//    @Transactional
+//    public ResponseEntity<PatientGetListDTO> getAllPatients(
+//            @RequestParam(value = "pageNo", defaultValue = "0", required = false) int pageNumber,
+//            @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize,
+//            @RequestParam(value = "name", required = false) String name
+//    ) throws BadRequestException {
+//        if (name == null || name.isEmpty()) {
+//            return new ResponseEntity<>(patientService.findAllPatients(pageNumber, pageSize), HttpStatus.OK);
+//        } else {
+//            return new ResponseEntity<>(patientService.findAllPatientsTestFilters(pageNumber, pageSize, name), HttpStatus.OK);
+//        }
+//    }
 
-    @GetMapping("/listLatestScores")
+    @GetMapping("/listAll")
     @CrossOrigin
     @Transactional
     public ResponseEntity<PatientGetListDTO> getPatientsWithLatestScore(
@@ -61,6 +61,20 @@ public class PatientController {
         );
     }
 
+    @GetMapping("/listLatestScores/uuid")
+    @CrossOrigin
+    @Transactional
+    public ResponseEntity<PatientGetListDTO> getPatientsWithWorkspaceID(
+            @RequestParam(value = "pageNo", defaultValue = "0", required = false) int pageNumber,
+            @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize,
+            @RequestParam(value = "sortBy", defaultValue = "createdAt", required = false) String sortBy,
+            @RequestParam(value = "sortDirection", defaultValue = "desc", required = false) String sortDirection
+    ) throws BadRequestException {
+        return new ResponseEntity<>(
+                patientService.findPatientsWithSorting(pageNumber, pageSize, sortBy, sortDirection),
+                HttpStatus.OK
+        );
+    }
 
 
 //    @GetMapping("/listAll")

@@ -25,6 +25,7 @@ public class ScoreGetDTO {
     private int avaliacaoNeurologica;
     private int avaliacaoCardiovascular;
     private int avaliacaoRespiratoria;
+    private int consciousnessState;
     private boolean nebulizacao; //Nebulização de resgate em 15 minutos
     private boolean eps_Emese; // 3 episódios ou mais de emese no pós operatório
     private int final_rating;

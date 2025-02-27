@@ -22,6 +22,7 @@ public class ScorePostDTO {
     private int avaliacaoNeurologica;     // int de 0 - 3
     private int avaliacaoCardiovascular;  // int de 0 - 3
     private int avaliacaoRespiratoria;    // int de 0 - 3
+    private int consciousnessState;       // int de 0 - 1
     private boolean nebulizacao;          //Nebulização de resgate em 15 minutos
     private boolean eps_Emese;            // 3 episódios ou mais de emese no pós operatório
     private int final_rating;
