@@ -73,7 +73,7 @@ public class HealthStaffService {
         HealthStaff toValidatehealthStaff = healthStaffRepository.findByUsernameAndPassword(dto.getUsername(), dto.getPassword());
         if (toValidatehealthStaff == null) return null;
 
-        return new LoginResponseDTO("Login successful.",
+        return new LoginResponseDTO("Login successful",
                 "exampletoken",
                 toValidatehealthStaff.getId(),
                 toValidatehealthStaff.getUsername(),
