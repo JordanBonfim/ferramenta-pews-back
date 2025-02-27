@@ -19,4 +19,5 @@ public class PatientGetListDTO {
     private List<PatientGetDTO> patientList;
     private int pageNo;
     private int pageSize;
+    private int totalSize;
 }
