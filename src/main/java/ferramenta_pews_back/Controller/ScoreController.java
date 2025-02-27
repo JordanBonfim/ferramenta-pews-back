@@ -31,6 +31,7 @@ public class ScoreController {
 
 
     @GetMapping("/patient")
+    @CrossOrigin
     public ResponseEntity<List<ScoreGetDTO>> getAllByPatientID(@RequestParam UUID uuid){
         return new ResponseEntity<>(scoreService.getAllByPatientID(uuid), HttpStatus.OK);
     }

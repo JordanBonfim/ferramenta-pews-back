@@ -5,8 +5,6 @@ import ferramenta_pews_back.DTOs.Patient.PatientGetDTO;
 import ferramenta_pews_back.DTOs.Patient.PatientGetListDTO;
 import ferramenta_pews_back.DTOs.Patient.PatientPostDTO;
 import ferramenta_pews_back.DTOs.Score.ScoreGetDTO;
-import ferramenta_pews_back.DTOs.User.HealthStaffPostDTO;
-import ferramenta_pews_back.Entities.HealthStaff;
 import ferramenta_pews_back.Entities.Patient;
 import ferramenta_pews_back.Entities.Score;
 import ferramenta_pews_back.Repositories.PatientRepository;
@@ -22,7 +20,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-import java.awt.print.Pageable;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -133,33 +130,7 @@ public class PatientService {
 
 
 //    public PatientGetListDTO findPatientsWithLatestScore(int pageNumber, int pageSize) throws BadRequestException {
-//        PageRequest pageable = PageRequest.of(pageNumber, pageSize);
-//        List<PatientGetDTO> patientGetDTOList = new ArrayList<>();
-//
-//        Page<Patient> patientList = patientRepository.findAll(pageable);
-//
-//        for (Patient patient : patientList) {
-//            List<Score> scores = patient.getScoreList();
-//
-//            if (!scores.isEmpty()) {
-//                // Ordena os scores por data (ou outro critério) e pega o mais recente
-//                Score latestScore = scores.stream()
-//                        .max(Comparator.comparing(Score::getCreatedAt)) // Substitua "getDate" pelo campo correto
-//                        .orElse(null);
-//
-//                if (latestScore != null) {
-//                    InterventionGetDTO interventionGetDTO = interventionService.findByUUID(latestScore.getIntervention().getUuid());
-//                    ScoreGetDTO latestScoreDTO = scoreMapper.toEntity(latestScore, interventionGetDTO);
-//                    patientGetDTOList.add(patientMapper.toEntity(patient, List.of(latestScoreDTO)));
-//                }
-//            } else {
-//                // Adiciona o paciente sem scores, se necessário
-//                patientGetDTOList.add(patientMapper.toEntity(patient, new ArrayList<>()));
-//            }
-//        }
-//
-//        return new PatientGetListDTO(patientGetDTOList, pageNumber, pageSize);
-//    }
+
 
     public PatientGetListDTO findAllPatients(int pageNumber, int pageSize) throws BadRequestException {
         PageRequest pageable = PageRequest.of(pageNumber, pageSize);
@@ -209,9 +180,12 @@ public class PatientService {
         patient.setBirthDate(dto.getBirthDate());
         Patient savedPatient = patientRepository.save(patient);
 
-        scoreService.registerScore(dto.getScore(), savedPatient);
+        if (dto.getScore() != null) {
+            scoreService.registerScore(dto.getScore(), savedPatient);
+        }
 
         scoreService.getAllByPatientID(savedPatient.getUuid());
         return savedPatient;
     }
+
 }

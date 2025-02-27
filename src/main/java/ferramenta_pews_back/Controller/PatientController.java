@@ -83,6 +83,7 @@ public class PatientController {
 //    }
 
     @PostMapping
+    @CrossOrigin
     public ResponseEntity<Patient> createPatient(@RequestBody PatientPostDTO patientPostDTO) throws BadRequestException {
         System.out.println("---------");
         System.out.println(patientPostDTO);
